@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <title>Направи резервација</title>
+    <link href="/main.css" rel="stylesheet" />
+    <style>
+        .content{
+            max-width: 500px;
+            margin: auto;
+            margin-top: 100px;
+            text-align: center;
+        }
+        #footer{
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+        table{
+            border-collapse: separate;
+            border-spacing: 25px 0;
+        }
+        body {
+            background-image: url('static/images/ofc.jpg');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+        }
+        .usr{
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+<header th:replace="fragments/header.html"/>
+
+<section th:include="${bodyContent}"/>
+
+<footer th:replace="fragments/footer.html"/>
+
+</body>
+</html>

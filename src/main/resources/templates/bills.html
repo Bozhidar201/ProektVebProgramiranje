@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <title>Bills</title>
+    <link href="/main.css" rel="stylesheet" />
+    <style>
+        .content{
+            max-width: 500px;
+            margin: auto;
+            margin-top: 100px;
+        }
+        #footer{
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+        table {
+            border-collapse: separate;
+            border-spacing: 25px 0;
+        }
+        .usr{
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+    <div class="container px-4">
+        <a class="navbar-brand" href="/">Oficerski 1937</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="/products">Сите продукти</a></li>
+                <li class="nav-item"><a class="nav-link" href="/bills">Сметки</a></li>
+                <li class="nav-item"><a class="nav-link" href="/contact">Контакт</a></li>
+                <li class="nav-item"><a class="nav-link" href="/logout">Одјави се</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="content" >
+    <div class="usr" th:if="${session.user!=null}">
+        <b>Најавени сте како:</b>
+        <div th:text="${session.user.username}"></div>
+    </div> <br> <br>
+
+    <form action="/bills/showBill" method="POST" >
+        <label>Изберете сметка: </label>
+        <select id="showBill" name="showBill" >
+            <option th:each="bill: ${bills}" th:value="${bill.id}"> <th:block th:text="${bill.id}" ></th:block> </option>
+        </select>
+        <button type="submit" class="btn btn-dark">Избери</button>
+    </form> <br>
+
+    <form method="POST" action="/addNewBill">
+        <label for="brMasa" >Додај нова сметка:</label>
+        <input type="text" id="brMasa" name="brMasa" placeholder="Број на маса" >
+        <button type="submit" class="btn btn-dark">Додај</button>
+    </form> <br>
+
+    <form method="POST" action="/addProductToBill">
+        <label for="idProduct">Додај нов продукт во сметка:</label>
+        <input type="text" id="idProduct" name="idProduct" placeholder="Шифра на продукт" >
+        <button type="submit" class="btn btn-dark">Додај</button>
+    </form>
+
+
+
+    <br>
+
+    <table class="tabela">
+        <thead>
+        <tr>
+            <th>Шифра</th>
+            <th>Име</th>
+            <th>Опис</th>
+            <th>Цена</th>
+            <th>Количина</th>
+        </tr>
+        </thead>
+        <tr>
+        <tr th:each="product : ${smetka?.productList}" >
+            <td th:text="${product?.id}"></th>
+            <td th:text="${product?.name}"></td>
+            <td th:text="${product?.description}"></td>
+            <td th:text="${product?.price}"></td>
+            <td th:text="${product?.quantity}"></td>
+        </tr>
+    </table>
+
+</div>
+<footer id="footer" class="py-5 bg-dark">
+    <div class="container px-4"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2021</p></div>
+</footer>
+</body>
+</html>

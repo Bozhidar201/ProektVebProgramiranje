@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <title>Месечна Агенда</title>
+    <link href="/main.css" rel="stylesheet" />
+    <style>
+        .content{
+            max-width: 500px;
+            margin: auto;
+            margin-top: 100px;
+            text-align: center;
+        }
+        #footer{
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+
+        body {
+            background-image: url('static/images/ofc.jpg');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+        }
+        .usr{
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+    <div class="container px-4">
+        <a class="navbar-brand" href="/">Oficerski 1937</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="/products">Сите продукти</a></li>
+                <li class="nav-item"><a class="nav-link" href="/bills">Сметки</a></li>
+                <li class="nav-item"><a class="nav-link" href="/contact">Контакт</a></li>
+                <li class="nav-item"><a class="nav-link" href="/logout">Одјави се</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+    <div class="content">
+        <div class="usr" th:if="${#request.getRemoteUser()!=null}">
+            <b>Информации за корисник:</b>
+            <div th:text="${#request.getRemoteUser()}"></div>
+        </div> <br>
+        <h1>Месечна агенда</h1>
+
+        <table id="tabela" class="table table-striped table-dark">
+
+            <tr th:each="event : ${events}" >
+                <td th:text="${event.time}"></th>
+                <td th:text="${event.nameOfBand}"></td>
+                <td th:text="${event.description}"></td>
+                <td>
+                    <a class="btn btn-light" role="button" th:href="@{'/events/makeReservation/{id}' (id=${event.id})}">Резервирај</a>
+                </td>
+            </tr>
+        </table> <br>
+
+        <a class="btn btn-lg btn-dark" role="button" href="/products">Погледни мени на ресторанот</a> <br> <br>
+
+        <a class="btn btn-lg btn-dark" role="button" href="/listAllReservations">Погледни листа од сите резервации</a> <br> <br>
+    </div>
+<footer id="footer" class="py-5 bg-dark">
+    <div class="container px-4"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2021</p></div>
+</footer>
+</body>
+</html>

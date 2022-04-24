@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <title>Products</title>
+    <link href="/main.css" rel="stylesheet" />
+    <style>
+        .content{
+            max-width: 500px;
+            margin: auto;
+            margin-top: 100px;
+        }
+        #footer{
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+        table {
+            border-collapse: separate;
+            border-spacing: 25px 0;
+        }
+        table {
+            border-collapse: separate;
+            border-spacing: 25px 0;
+        }
+        .usr{
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+    <div class="container px-4">
+        <a class="navbar-brand" href="/">Oficerski 1937</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="/products">Сите продукти</a></li>
+                <li class="nav-item"><a class="nav-link" href="/bills">Сметки</a></li>
+                <li class="nav-item"><a class="nav-link" href="/contact">Контакт</a></li>
+                <li class="nav-item"><a class="nav-link" href="/logout">Одјави се</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="content">
+    <div class="usr" th:if="${session.user!=null}">
+        <b>Најавени сте како:</b>
+        <div th:text="${session.user.username}"></div>
+    </div> <br> <br>
+    <h2 style="text-align: center" class="display-2">Мени</h2> <br>
+    <th:block sec:authorize="hasRole('ROLE_ADMIN')" >
+    <a class="btn btn-dark" role="button" href="/products/add" >Додај нов продукт</a> <br> <br>
+    </th:block>
+    <table class="tabela">
+        <thead>
+        <tr>
+            <th>Шифра</th>
+            <th>Име</th>
+            <th>Опис</th>
+            <th>Цена</th>
+            <th>Количина</th>
+            <th>Произведувач</th>
+        </tr>
+        </thead>
+        <tr th:each="product : ${products}" >
+            <td th:text="${product.id}"></th>
+            <td th:text="${product.name}"></td>
+            <td th:text="${product.description}"></td>
+            <td th:text="${product.price}"></td>
+            <td th:text="${product.quantity}"></td>
+            <td th:text="${product.manufacturer.name}"> </td>
+            <td>
+                <th:block sec:authorize="hasRole('ROLE_ADMIN')" >
+                <form method="POST" th:action="@{'/products/{id}/delete' (id=${product.id})}" >
+                    <button class="btn btn-dark" type="submit" >Delete</button>
+                </form>
+                </th:block>
+                <th:block sec:authorize="hasRole('ROLE_ADMIN')" >
+                <a class="btn btn-dark" role="button" th:href="@{'/products/{id}/edit' (id=${product.id})}">Edit</a>
+                </th:block>
+            </td>
+        </tr>
+    </table>
+
+</div>
+</body>
+</html>

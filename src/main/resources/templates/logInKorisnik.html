@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <title>Најава на корисник</title>
+    <link href="/main.css" rel="stylesheet" />
+    <style>
+        .content{
+            max-width: 500px;
+            margin: auto;
+            margin-top: 100px;
+        }
+        .display-2{
+            margin-top: 50px;
+            text-align: center;
+        }
+        .error{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<h1 class="display-2">Најава на корисник</h1>
+<div class="content">
+
+    <div th:if="${hasError}" class="error">
+        <div th:text="${error}"></div>
+    </div>
+    <form method="POST" action="/logInKorisnik/Auth">
+        <div class="form-group">
+            <label for="username"  >Корисничко име: </label>
+            <input type="text" class="form-control" id="username" name="username" aria-describedby="emailHelp" placeholder="Корисничко име" required>
+        </div> <br>
+        <div class="form-group">
+            <label for="password"  >Лозинка: </label>
+            <input type="password" class="form-control" id="password" name="password" aria-describedby="emailHelp" placeholder="Лозинка" required>
+        </div> <br>
+        <button type="submit" class="btn btn-dark" >Најави се</button>
+    </form> <br>
+    <a href="/register">Креирајте корисничка сметка</a> <br> <br>
+    <a class="btn btn-dark" role="button" href="/"> << Назад</a> <br>
+
+
+
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Најава на корисник</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<!--    <link href="/main.css" rel="stylesheet" />-->
+    <style>
+        .content{
+            max-width: 500px;
+            margin: auto;
+            margin-top: 100px;
+        }
+        .display-2{
+            margin-top: 50px;
+            text-align: center;
+        }
+        .error{
+            color: red;
+        }
+        #footer{
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+    <div class="container px-4">
+        <a class="navbar-brand" href="/">Oficerski 1937</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="/products">Мени</a></li>
+                <li class="nav-item"><a class="nav-link" href="/">Сервис</a></li>
+                <li class="nav-item"><a class="nav-link" href="/contact">Контакт</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<h1 class="display-2" style="margin-top: 100px">Најава на корисник</h1>
+<div class="content">
+    <form method="POST" action="/login">
+        <div th:if="${hasError}" class="error">
+            <div th:text="${error}"></div>
+        </div>
+        <div class="form-group">
+            <label for="username"  >Корисничко име: </label>
+            <input type="text" class="form-control" id="username" name="username" aria-describedby="emailHelp" placeholder="Корисничко име" required>
+        </div> <br>
+        <div class="form-group">
+            <label for="password"  >Лозинка: </label>
+            <input type="password" class="form-control" id="password" name="password" aria-describedby="emailHelp" placeholder="Лозинка" required>
+        </div> <br>
+        <button type="submit" class="btn btn-dark" >Најави се</button>
+    </form> <br>
+    <a href="/register">Креирајте корисничка сметка</a> <br> <br>
+</div>
+
+<footer id="footer" class="py-5 bg-dark">
+    <div class="container px-4"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2021</p></div>
+</footer>
+</body>
+</html>
